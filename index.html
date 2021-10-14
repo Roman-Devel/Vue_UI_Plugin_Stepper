@@ -14,7 +14,7 @@
 
 				<div class="steps">
 					<div class="steps-content">
-						{{ steps[activeIndex].text }}
+						{{ activeStep.text }}
 					</div>
 					<ul class="steps-list">
 						<li
@@ -30,28 +30,20 @@
 							<span>{{ idx + 1 }}</span> {{ step.title }}
 						</li>
 					</ul>
-					<div v-if="!finishActive">
+					<div v-if="isActive">
 						<button
 							class="btn"
-							ref="prevBtn"
 							@click="prev"
-							disabled
+							:disabled="prevDisabled"
 						>
 							Назад
 						</button>
 						<button
 							class="btn primary"
-							@click="nextOfFinish(false)"
+							@click="nextOfFinish"
 							v-if="!finishStep"
 						>
-							Вперед
-						</button>
-						<button
-							class="btn primary"
-							@click="nextOfFinish(true)"
-							v-else
-						>
-							Закончить
+							{{ isLastStep ? 'Закончить' : 'Вперед' }}
 						</button>
 					</div>
 					<div v-else>
